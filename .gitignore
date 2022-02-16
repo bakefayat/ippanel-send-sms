@@ -1,1 +1,8 @@
 /.env
+.idea/inspectionProfiles/
+.idea/misc.xml
+.idea/modules.xml
+.idea/other.xml
+.idea/send_sms.iml
+.idea/vcs.xml
+__pycache__/
