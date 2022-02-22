@@ -3,7 +3,7 @@ import json
 from config import api_key
 url_address = "http://rest.ippanel.com/v1/messages/"
 sender = "+983000505"
-receiver = ["+989999999999", ]
+receiver = ["+989111111111", ]
 message_text = "متن تست"
 
 bytes_response = requests.post(url=url_address,

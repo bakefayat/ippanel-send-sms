@@ -1,7 +1,7 @@
 import requests
 from config import api_key, pid, sender
 
-receiver = "9371304458"
+receiver = "989111111111"
 # first key.
 p1 = 'name'
 # first value.
