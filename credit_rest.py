@@ -1,11 +1,9 @@
-import requests
-import json
 from config import api_key
+from core import RestUrl
 
-
-bytes_response = requests.get(url="http://rest.ippanel.com/v1/credit",
-                              headers={"Authorization": f"AccessKey {api_key}"})
-response = json.loads(bytes_response.content)
+url = RestUrl('http://rest.ippanel.com/v1/credit', api_key)
+url.get_request_to_url()
+response = url.response_content_to_json()
 
 try:
     credit = int(response['data']['credit'])
