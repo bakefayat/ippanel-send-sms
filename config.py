@@ -4,4 +4,4 @@ api_key = config("API_KEY")
 # pattern id -> unique id of pattern. ask sms panel provider.
 pid = config("PID")
 sender = '3000505'
-base_endpoint = "http://rest.ippanel.com/"
+base_endpoint = "http://rest.ippanel.com/v1/"
