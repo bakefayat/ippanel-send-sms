@@ -19,20 +19,35 @@ class RestUrl:
             return response
 
         except KeyError:
-            res = {
+            error = {
                 "status": json_response['status'],
                 "error": json_response['data']['error']
             }
-            return res
+            return error
 
         except requests.exceptions.ConnectionError:
             response = "connection refused."
+            return response
 
     def get_user_detail(self):
-        address = self.endpoint + 'v1/user'
-        response = requests.get(url=address,
-                                headers={"Authorization": f"AccessKey {api_key}"})
-        return response
+        address = base_endpoint + 'v1/user'
+        try:
+            bytes_response = requests.get(url=address,
+                                          headers={"Authorization": f"AccessKey {api_key}"})
+            json_response = response_content_to_json(bytes_response)
+            response = json_response['data']['user']
+            return response
+
+        except KeyError:
+            error = {
+                "status": json_response['status'],
+                "error": json_response['data']['error']
+            }
+            return error
+
+        except requests.exceptions.ConnectionError:
+            response = "connection refused."
+            return response
 
     def post_request_to_url(self, data):
         response = requests.post(url=self.address,
