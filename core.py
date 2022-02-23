@@ -10,7 +10,7 @@ def response_content_to_json(bytes_response):
 
 class RestUrl:
     def get_credit(self):
-        address = base_endpoint + 'v1/credit'
+        address = base_endpoint + 'credit'
         try:
             bytes_response = requests.get(url=address,
                                           headers={"Authorization": f"AccessKey {api_key}"})
@@ -30,7 +30,7 @@ class RestUrl:
             return response
 
     def get_user_detail(self):
-        address = base_endpoint + 'v1/user'
+        address = base_endpoint + 'user'
         try:
             bytes_response = requests.get(url=address,
                                           headers={"Authorization": f"AccessKey {api_key}"})
@@ -49,8 +49,28 @@ class RestUrl:
             response = "connection refused."
             return response
 
-    def post_request_to_url(self, data):
-        response = requests.post(url=self.address,
-                                 headers={"Authorization": f"AccessKey {api_key}"},
-                                 data=data)
-        return response
+    def post_request_to_url(self, sender, receivers, message_text):
+        address = base_endpoint + 'messages/'
+        data = {
+            "originator": sender,
+            "recipients": receivers,
+            "message": message_text,
+        }
+        try:
+            bytes_response = requests.post(url=address,
+                                     headers={"Authorization": f"AccessKey {api_key}"},
+                                     data=data)
+            json_response = response_content_to_json(bytes_response)
+            response = json_response['data']['bulk_id']
+            return response
+
+        except KeyError:
+            error = {
+                "status": json_response['status'],
+                "error": json_response['data']['error']
+            }
+            return error
+
+        except requests.exceptions.ConnectionError:
+            response = "connection refused."
+            return response
