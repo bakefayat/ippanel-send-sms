@@ -14,7 +14,8 @@ def add_to_set():
     numbers = []
     for i in range(0, len(name)):
         if number[i] and price[i] and name[i]:
-            number[i] = number[i].strip()
+            if type(number[i]) != int:
+                number[i] = number[i].strip()
             name[i] = name[i].strip()
             if number[i] and price[i] and name[i]:
                 names.append(name[i])
